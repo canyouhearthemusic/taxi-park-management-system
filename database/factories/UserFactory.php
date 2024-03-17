@@ -22,7 +22,7 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name(),
+            'name' => $this->faker->name,
             'role' => UserRole::ADMIN->value,
             'city_id' => null,
             'email' => $this->faker->unique()->safeEmail(),

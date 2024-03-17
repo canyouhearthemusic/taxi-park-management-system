@@ -6,6 +6,7 @@ use App\Enums\UserRole;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Jetstream\HasProfilePhoto;
@@ -41,6 +42,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'two_factor_secret',
     ];
 
+    protected $visible = ['*'];
     /**
      * The attributes that should be cast.
      *
@@ -63,5 +65,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function password(): Attribute
     {
         return Attribute::set(fn($value) => bcrypt($value));
+    }
+
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class);
     }
 }

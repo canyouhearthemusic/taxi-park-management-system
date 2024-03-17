@@ -15,22 +15,21 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
+Route::middleware('guest')->get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
+        'canRegister' => Route::has('register')
     ]);
 });
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
 
-    require "admin.php";
+    Route::get('/home', function () {
+        return Inertia::render('Homepage');
+    })->name('homepage');
 
+    require "admin.php";
+    
     require "operator.php";
 
-    Route::get('/home', function () {
-        return Inertia::render('HomePage');
-    })->name('homepage');
 });
