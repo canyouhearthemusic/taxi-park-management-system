@@ -9,13 +9,17 @@ use Inertia\Inertia;
 
 class WorkerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         return Inertia::render('Admin/Workers/Index', [
             'users' => UserResource::collection(User::query()
                 ->with('city')
+                ->when($request->query('search'), fn($query, $text) => $query->searchBy($text))
+                ->when($request->query('sort'), fn($query, $sort) => $query->sortBy($sort))
                 ->paginate(15))
-                ->withQueryString()
+                ->withQueryString(),
+            'search' => $request->query('search', ''),
+            'sort' => $request->query('sort', ''),
         ]);
     }
 }

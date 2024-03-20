@@ -5,10 +5,10 @@ const props = defineProps({
     id: String,
     name: String,
     placeholder: String,
-    search: String,
+    modelValue: String,
 });
 
-const emit = defineEmits(["update:search"]);
+const emit = defineEmits(["update:modelValue"]);
 </script>
 
 <template>
@@ -18,8 +18,8 @@ const emit = defineEmits(["update:search"]);
             :name="name"
             :id="name"
             :placeholder="placeholder"
-            :value="search"
-            @input="$emit('update:search', $event.target.value)"
+            :value="modelValue"
+            @input="$emit('update:modelValue', $event.target.value)"
             class="peer block w-full border-0 py-3 text-gray-800 focus:ring-0 sm:text-sm sm:leading-6 pl-14 rounded-t-md"
         />
         <div

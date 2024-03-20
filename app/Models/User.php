@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\UserRole;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -70,5 +71,23 @@ class User extends Authenticatable implements MustVerifyEmail
     public function city(): BelongsTo
     {
         return $this->belongsTo(City::class);
+    }
+
+    public function scopeSearchBy(Builder $builder, string $text): Builder
+    {
+        return $builder->where('name', 'like', '%' . $text . '%');
+    }
+
+    public function scopeSortBy(Builder $builder, string $sortType): Builder
+    {
+        return match ($sortType) {
+            'name_asc' => $builder->orderBy('name'),
+            'name_desc' => $builder->orderBy('name', 'desc'),
+            'city_asc' => $builder->orderByRaw('(SELECT name FROM cities WHERE cities.id = users.city_id) asc'),
+            'city_desc' => $builder->orderByRaw('(SELECT name FROM cities WHERE cities.id = users.city_id) desc'),
+            'role_asc' => $builder->orderBy('role'),
+            'role_desc' => $builder->orderBy('role', 'desc'),
+            default => $builder,
+        };
     }
 }
