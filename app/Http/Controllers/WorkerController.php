@@ -14,7 +14,7 @@ class WorkerController extends Controller
         return Inertia::render('Admin/Workers/Index', [
             'users' => UserResource::collection(User::query()
                 ->with('city')
-                ->when($request->query('search'), fn($query, $text) => $query->searchBy($text))
+                ->when($request->query('search'), fn($query, $text) => $query->searchBy('name', $text))
                 ->when($request->query('sort'), fn($query, $sort) => $query->sortBy($sort))
                 ->paginate(15))
                 ->withQueryString(),

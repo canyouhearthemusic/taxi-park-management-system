@@ -12,6 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use App\Traits\Searchable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -19,6 +20,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasFactory;
     use HasProfilePhoto;
     use Notifiable;
+    use Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -71,11 +73,6 @@ class User extends Authenticatable implements MustVerifyEmail
     public function city(): BelongsTo
     {
         return $this->belongsTo(City::class);
-    }
-
-    public function scopeSearchBy(Builder $builder, string $text): Builder
-    {
-        return $builder->where('name', 'like', '%' . $text . '%');
     }
 
     public function scopeSortBy(Builder $builder, string $sortType): Builder

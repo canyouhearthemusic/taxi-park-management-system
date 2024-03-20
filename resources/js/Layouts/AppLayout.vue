@@ -77,6 +77,8 @@ const logout = () => {
                                     v-if="
                                         $page.props.auth.user.role === 'admin'
                                     "
+                                    :href="route('admin.cities.index')"
+                                    :active="route().current('admin.cities.index')"
                                 >
                                     Города
                                 </NavLink>
