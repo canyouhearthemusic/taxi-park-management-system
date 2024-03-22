@@ -18,6 +18,9 @@ const props = defineProps({
                 'text-gray-400 bg-gray-100 cursor-not-allowed': !link.url,
                 'font-bold bg-gray-50': link.active
             }"
+            replace
+            preserve-scroll
+            preseve-state
         />
     </div>
 </template>
