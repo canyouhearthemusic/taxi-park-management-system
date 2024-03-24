@@ -2,8 +2,12 @@
 
 namespace App\Enums;
 
+use App\Enums\Concerns\HasOptions;
+
 enum UserRole: int
 {
+    use HasOptions;
+
     case ADMIN = 0;
     case OPERATOR = 1;
     case SECURITY = 2;
@@ -11,9 +15,9 @@ enum UserRole: int
     public function label(): string
     {
         return match ($this) {
-            self::ADMIN => 'admin',
-            self::OPERATOR => 'operator',
-            self::SECURITY => 'security',
+            self::ADMIN => 'Admin',
+            self::OPERATOR => 'Operator',
+            self::SECURITY => 'Security',
         };
     }
 }

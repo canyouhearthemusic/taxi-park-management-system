@@ -4,6 +4,7 @@ import Pagination from "@/Shared/Pagination.vue";
 import InputSearch from "@/Components/Inputs/InputSearch.vue";
 import TableOutline from "@/Components/Tables/TableOutline.vue";
 import TableHeader from "@/Components/Tables/TableHeader.vue";
+import SecondaryButton from "@/Components/SecondaryButton.vue";
 import { Link, useForm } from "@inertiajs/vue3";
 import { debounce } from "lodash";
 import { watch } from "vue";
@@ -11,7 +12,7 @@ import { watch } from "vue";
 const props = defineProps({
     users: Object,
     search: String,
-    sort: String
+    sort: String,
 });
 
 const form = useForm({
@@ -55,10 +56,8 @@ function submitForm() {
                     </p>
                 </div>
                 <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                    <Link
-                        class="w-full block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                    >
-                        Добавить Работника
+                    <Link :href="route('admin.workers.create')" class="w-full">
+                        <SecondaryButton> Добавить Работника </SecondaryButton>
                     </Link>
                 </div>
             </div>
@@ -110,7 +109,10 @@ function submitForm() {
                             <TableHeader :headers="TABLE_HEADERS" />
                         </template>
 
-                        <tbody v-if="users.data.length" class="divide-y divide-gray-200 bg-white">
+                        <tbody
+                            v-if="users.data.length"
+                            class="divide-y divide-gray-200 bg-white"
+                        >
                             <tr v-for="worker in users.data" :key="worker.id">
                                 <td
                                     class="whitespace-nowrap font-semibold py-5 pl-4 pr-3 text-sm sm:pl-0"

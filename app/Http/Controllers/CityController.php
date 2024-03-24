@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCityRequest;
 use App\Models\City;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -17,5 +18,19 @@ class CityController extends Controller
                 ->withQueryString(),
             'search' => $request->query('search', '')
         ]);
+    }
+
+    public function create()
+    {
+        return Inertia::render('Admin/Cities/Create');
+    }
+
+    public function store(StoreCityRequest $request)
+    {
+        $data = $request->validated();
+
+        City::create($data);
+
+        return to_route('admin.cities.index')->with(['success' => 'Город был успешно создан.']);
     }
 }

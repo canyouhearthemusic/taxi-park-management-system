@@ -15,12 +15,8 @@ class IdentifyUserRole
      */
     public function handle(Request $request, Closure $next, $roleName): Response
     {
-        $role = $request->user()->role;
-        
-        if ($role === null || $role->label() !== $roleName) {
-            return abort(403);
-        }
-
-        return $next($request);
+        return $request->user()->role && strtolower($request->user()->role->label()) === $roleName
+            ? $next($request)
+            : abort(403);
     }
 }

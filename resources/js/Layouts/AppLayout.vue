@@ -63,7 +63,7 @@ const logout = () => {
 
                                 <NavLink
                                     v-if="
-                                        $page.props.auth.user.role === 'admin'
+                                        $page.props.auth.user.role === 'Admin'
                                     "
                                     :href="route('admin.workers.index')"
                                     :active="
@@ -75,10 +75,12 @@ const logout = () => {
 
                                 <NavLink
                                     v-if="
-                                        $page.props.auth.user.role === 'admin'
+                                        $page.props.auth.user.role === 'Admin'
                                     "
                                     :href="route('admin.cities.index')"
-                                    :active="route().current('admin.cities.index')"
+                                    :active="
+                                        route().current('admin.cities.index')
+                                    "
                                 >
                                     Города
                                 </NavLink>
@@ -232,7 +234,23 @@ const logout = () => {
                             :href="route('homepage')"
                             :active="route().current('homepage')"
                         >
-                            Home
+                            Главная
+                        </ResponsiveNavLink>
+
+                        <ResponsiveNavLink
+                            v-if="$page.props.auth.user.role === 'Admin'"
+                            :href="route('admin.workers.index')"
+                            :active="route().current('admin.workers.index')"
+                        >
+                            Работники
+                        </ResponsiveNavLink>
+
+                        <ResponsiveNavLink
+                            v-if="$page.props.auth.user.role === 'Admin'"
+                            :href="route('admin.cities.index')"
+                            :active="route().current('admin.cities.index')"
+                        >
+                            Города
                         </ResponsiveNavLink>
                     </div>
 
