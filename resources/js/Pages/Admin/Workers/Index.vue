@@ -56,8 +56,8 @@ function submitForm() {
                     </p>
                 </div>
                 <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                    <Link :href="route('admin.workers.create')" class="w-full">
-                        <SecondaryButton> Добавить Работника </SecondaryButton>
+                    <Link :href="route('admin.workers.create')" class="w-1/2 sm:w-full">
+                        <SecondaryButton class="w-full py-3 sm:py-2"> Добавить Работника </SecondaryButton>
                     </Link>
                 </div>
             </div>
@@ -73,7 +73,7 @@ function submitForm() {
                     />
 
                     <div
-                        class="mt-4 w-3/4 mx-auto sm:absolute sm:-top-2 sm:right-0 sm:mt-0 sm:w-1/6 sm:ml-auto"
+                        class="mt-8 w-3/4 mx-auto sm:absolute sm:-top-2 sm:right-0 sm:mt-0 sm:w-1/6 sm:ml-auto"
                     >
                         <label
                             for="sort"
@@ -172,7 +172,7 @@ function submitForm() {
                     </TableOutline>
                 </div>
             </div>
-            <Pagination :links="users.links" />
+            <Pagination class="mt-4" :links="users.links" />
         </div>
     </AppLayout>
 </template>

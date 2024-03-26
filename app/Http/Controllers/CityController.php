@@ -7,7 +7,6 @@ use App\Http\Requests\UpdateCityRequest;
 use App\Models\City;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Validator;
 
 class CityController extends Controller
 {

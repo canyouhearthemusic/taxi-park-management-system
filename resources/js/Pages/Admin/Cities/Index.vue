@@ -53,8 +53,8 @@ function submitForm() {
                     </p>
                 </div>
                 <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                    <Link :href="route('admin.cities.create')" class="w-full">
-                        <SecondaryButton> Добавить Город </SecondaryButton>
+                    <Link :href="route('admin.cities.create')" class="w-1/2 sm:w-full">
+                        <SecondaryButton class="w-full py-3 sm:py-2"> Добавить Город </SecondaryButton>
                     </Link>
                 </div>
             </div>
@@ -118,7 +118,7 @@ function submitForm() {
                     </div>
                 </div>
             </div>
-            <Pagination :links="cities.links" />
+            <Pagination class="mt-4" :links="cities.links" />
         </div>
     </AppLayout>
 </template>
