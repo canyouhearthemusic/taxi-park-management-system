@@ -67,7 +67,7 @@ const logout = () => {
                                     "
                                     :href="route('admin.workers.index')"
                                     :active="
-                                        route().current('admin.workers.index')
+                                        route().current('admin.workers.*')
                                     "
                                 >
                                     Работники
@@ -79,7 +79,7 @@ const logout = () => {
                                     "
                                     :href="route('admin.cities.index')"
                                     :active="
-                                        route().current('admin.cities.index')
+                                        route().current('admin.cities.*')
                                     "
                                 >
                                     Города

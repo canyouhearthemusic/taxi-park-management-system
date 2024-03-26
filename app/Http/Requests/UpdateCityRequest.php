@@ -2,10 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Models\City;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreCityRequest extends FormRequest
+class UpdateCityRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +24,7 @@ class StoreCityRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', Rule::unique('cities', 'name')],
+            'name' => ['required', Rule::unique('cities', 'name')->ignore($this->id)],
             'region' => ['required', 'integer', 'min:1', 'max:255']
         ];
     }

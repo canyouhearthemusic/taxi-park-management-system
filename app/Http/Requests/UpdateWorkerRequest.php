@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class StoreCityRequest extends FormRequest
+class UpdateWorkerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +22,9 @@ class StoreCityRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', Rule::unique('cities', 'name')],
-            'region' => ['required', 'integer', 'min:1', 'max:255']
+            'name' => ['required', 'string', 'min:5', 'max:50'],
+            'role' => ['required', 'integer'],
+            'city' => ['nullable', 'integer', 'exists:cities,id']
         ];
     }
 }

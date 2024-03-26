@@ -14,4 +14,13 @@ trait HasOptions
                 ];
             })->toArray();
     }
+
+    public function toOptions(): array
+    {
+        return [
+            'key' => $this->label(),
+            'value' => $this->value,
+        ];
+    }
+
 }

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Jetstream\DeleteUser;
+use App\Actions\Workers\UpdateWorker;
 use App\Actions\Workers\CreateNewWorker;
 use App\Enums\UserRole;
 use App\Http\Requests\StoreWorkerRequest;
+use App\Http\Requests\UpdateWorkerRequest;
 use App\Http\Resources\UserResource;
 use App\Models\City;
 use App\Models\User;
@@ -17,7 +20,7 @@ class WorkerController extends Controller
     {
         return Inertia::render('Admin/Workers/Index', [
             'users' => UserResource::collection(User::query()
-                ->with('city')
+                ->with('city:id,name')
                 ->when($request->query('search'), fn($query, $text) => $query->searchBy('name', $text))
                 ->when($request->query('sort'), fn($query, $sort) => $query->sortBy($sort))
                 ->paginate(15))
@@ -37,12 +40,31 @@ class WorkerController extends Controller
 
     public function store(StoreWorkerRequest $request, CreateNewWorker $createNewWorker)
     {
-        $user = $createNewWorker->handle($request);
+        return $createNewWorker->handle($request)
+            ? to_route('admin.workers.index')->with(['success' => 'Работник был успешно создан.'])
+            : to_route('admin.workers.index')->with(['error' => 'Не удалось создать работника']);
+    }
 
-        if($user) {
-            return to_route('admin.workers.index')->with(['success' => 'Работник был успешно создан.']);
-        }
+    public function edit(User $user)
+    {
+        return Inertia::render('Admin/Workers/Edit', [
+            'worker' => UserResource::make($user),
+            'roles' => UserRole::options(),
+            'cities' => City::select(['id', 'name'])->get()
+        ]);
+    }
 
-        return to_route('admin.workers.index')->with(['error' => 'Не удалось создать работника']);
+    public function update(UpdateWorkerRequest $request, User $user, UpdateWorker $updateWorker)
+    {
+        return $updateWorker->handle($request, $user)
+            ? to_route('admin.workers.index')->with(['success' => 'Работник был успешно обновлен.'])
+            : to_route('admin.workers.index')->with(['error' => 'Не удалось обновить работника']);
+    }
+
+    public function destroy(User $user, DeleteUser $deleteUser)
+    {
+        return $deleteUser->delete($user)
+            ? to_route('admin.workers.index')->with(['success' => 'Работник был успешно удален.'])
+            : to_route('admin.workers.index')->with(['error' => 'Не удалось удалить работника']);
     }
 }

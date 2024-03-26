@@ -73,13 +73,12 @@ function submitForm() {
 
             <div class="mt-8 flow-root">
                 <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                    <TableOutline>
+                    <TableOutline v-if="cities.data.length">
                         <template #header>
                             <TableHeader :headers="TABLE_HEADERS" />
                         </template>
 
                         <tbody
-                            v-if="cities.data.length"
                             class="divide-y divide-gray-200 bg-white"
                         >
                             <tr v-for="city in cities.data" :key="city.id">
@@ -104,18 +103,19 @@ function submitForm() {
                                     class="relative whitespace-nowrap py-5 pl-3 pr-4 text-right text-sm font-medium sm:pr-0"
                                 >
                                     <Link
-                                        href="#"
+                                        :href="route('admin.cities.edit', { city: city.id })"
                                         class="text-indigo-600 hover:text-indigo-900"
                                     >
                                         Править
-                                        <span class="sr-only">
-                                            {{ city.name }}
-                                        </span>
                                     </Link>
                                 </td>
                             </tr>
                         </tbody>
                     </TableOutline>
+                    
+                    <div v-else class="text-center text-2xl mt-3 mb-10 font-semibold text-gray-600">
+                        Нет городов.
+                    </div>
                 </div>
             </div>
             <Pagination :links="cities.links" />

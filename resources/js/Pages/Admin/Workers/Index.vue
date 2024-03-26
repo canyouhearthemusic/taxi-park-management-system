@@ -146,19 +146,19 @@ function submitForm() {
                                     class="whitespace-nowrap py-5 text-sm text-gray-500"
                                 >
                                     <div class="text-gray-900 px-3 sm:px-0">
-                                        {{ worker.city }}
+                                        {{ worker.city.name }}
                                     </div>
                                 </td>
                                 <td
                                     class="whitespace-nowrap py-5 text-sm text-gray-500 capitalize px-3 sm:px-0"
                                 >
-                                    {{ worker.role }}
+                                    {{ worker.role.key }}
                                 </td>
                                 <td
                                     class="relative whitespace-nowrap py-5 pl-3 pr-4 text-right text-sm font-medium sm:pr-0"
                                 >
                                     <Link
-                                        href="#"
+                                        :href="route('admin.workers.edit', { user: worker.id })"
                                         class="text-indigo-600 hover:text-indigo-900"
                                     >
                                         Править
