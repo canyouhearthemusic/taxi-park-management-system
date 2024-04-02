@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Actions\Workers;
+
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class CreateNewWorker
+class CreateWorker
 {
     public function handle(Request $request)
     {

@@ -84,6 +84,30 @@ const logout = () => {
                                 >
                                     Города
                                 </NavLink>
+
+                                <NavLink
+                                    v-if="
+                                        $page.props.auth.user.role === 'Operator'
+                                    "
+                                    :href="route('operator.drivers.index')"
+                                    :active="
+                                        route().current('operator.drivers.*')
+                                    "
+                                >
+                                    Водители
+                                </NavLink>
+
+                                <NavLink
+                                    v-if="
+                                        $page.props.auth.user.role === 'Operator'
+                                    "
+                                    :href="route('operator.cars.index')"
+                                    :active="
+                                        route().current('operator.cars.*')
+                                    "
+                                >
+                                    Машины
+                                </NavLink>
                             </div>
                         </div>
 

@@ -10,7 +10,7 @@ import { debounce } from "lodash";
 import { watch } from "vue";
 
 const props = defineProps({
-    users: Object,
+    drivers: Object,
     search: String,
     sort: String,
 });
@@ -20,12 +20,12 @@ const form = useForm({
     sort: props.sort,
 });
 
-const TABLE_HEADERS = ["ID", "Имя", "Город", "Роль"];
+const TABLE_HEADERS = ["ID", "Имя", "ИИН", "Город Нахождения"];
 
 watch(() => form.data(), debounce(submitForm, 500));
 
 function submitForm() {
-    form.get(route("admin.workers.index"), {
+    form.get(route("operator.drivers.index"), {
         data: {
             search: form.search,
             sort: form.sort,
@@ -41,7 +41,7 @@ function submitForm() {
     <AppLayout title="Home">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Список Работников
+                Список Водителей
             </h2>
         </template>
 
@@ -49,19 +49,19 @@ function submitForm() {
             <div class="sm:flex sm:items-center">
                 <div class="sm:flex-auto">
                     <h1 class="text-base font-semibold leading-6 text-gray-900">
-                        Работники
+                        Водители
                     </h1>
                     <p class="mt-2 text-sm text-gray-700">
-                        Список всех работников включая их, имена, почту и роль.
+                        Список всех водителей закреплённые за Вами.
                     </p>
                 </div>
                 <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
                     <Link
-                        :href="route('admin.workers.create')"
+                        :href="route('operator.drivers.create')"
                         class="w-1/2 sm:w-full"
                     >
                         <SecondaryButton class="w-full py-3 sm:py-2">
-                            Добавить Работника
+                            Добавить Водителя
                         </SecondaryButton>
                     </Link>
                 </div>
@@ -73,7 +73,7 @@ function submitForm() {
                         class="w-9/12 sm:w-1/3"
                         id="search"
                         name="search"
-                        placeholder="Найти Работника"
+                        placeholder="Найти Водителя"
                         v-model="form.search"
                     />
 
@@ -109,69 +109,84 @@ function submitForm() {
 
             <div class="mt-8 flow-root">
                 <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                    <TableOutline v-if="users.data.length">
+                    <TableOutline v-if="drivers.data.length">
                         <template #header>
                             <TableHeader :headers="TABLE_HEADERS" />
                         </template>
 
                         <tbody class="divide-y divide-gray-200 bg-white">
-                            <tr v-for="worker in users.data" :key="worker.id">
+                            <tr v-for="driver in drivers.data" :key="driver.id">
                                 <td
                                     class="whitespace-nowrap font-semibold py-5 pl-4 pr-3 text-sm sm:pl-0"
                                 >
-                                    {{ worker.id }}
+                                    {{ driver.id }}
                                 </td>
                                 <td
                                     class="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0"
                                 >
                                     <div class="flex items-center">
-                                        <div
-                                            class="h-11 w-11 flex-shrink-0 mr-4"
-                                        >
+                                        <!-- <div class="h-11 w-11 flex-shrink-0 mr-4">
                                             <img
                                                 class="h-11 w-11 rounded-full"
-                                                :src="worker.photo"
+                                                :src="driver.photo"
                                                 alt=""
                                             />
-                                        </div>
+                                        </div> -->
                                         <div>
                                             <div
                                                 class="font-medium text-gray-900"
                                             >
-                                                {{ worker.name }}
+                                                {{ driver.name }}
                                             </div>
-                                            <div class="mt-1 text-gray-500">
-                                                {{ worker.email }}
-                                            </div>
+                                            <!-- <div class="mt-1 text-gray-500">
+                                                {{ driver.email }}
+                                            </div> -->
                                         </div>
                                     </div>
                                 </td>
+
                                 <td
                                     class="whitespace-nowrap py-5 text-sm text-gray-500"
                                 >
                                     <div class="text-gray-900 px-3 sm:px-0">
-                                        {{ worker.city.name }}
+                                        {{ driver.IIN }}
+                                    </div>
+                                </td>
+
+                                <td
+                                    class="whitespace-nowrap py-5 text-sm text-gray-500"
+                                >
+                                    <div class="text-gray-900 px-3 sm:px-0">
+                                        {{ driver.city_name }}
+                                    </div>
+                                </td>
+
+                                <!-- <td
+                                    class="whitespace-nowrap py-5 text-sm text-gray-500"
+                                >
+                                    <div class="text-gray-900 px-3 sm:px-0">
+                                        {{ driver.city.name }}
                                     </div>
                                 </td>
                                 <td
                                     class="whitespace-nowrap py-5 text-sm text-gray-500 capitalize px-3 sm:px-0"
                                 >
-                                    {{ worker.role.key }}
-                                </td>
+                                    {{ driver.role.key }}
+                                </td> -->
                                 <td
                                     class="relative whitespace-nowrap py-5 pl-3 pr-4 text-right text-sm font-medium sm:pr-0"
                                 >
                                     <Link
                                         :href="
-                                            route('admin.workers.edit', {
-                                                user: worker.id,
+                                            route('operator.drivers.edit', {
+                                                driver: driver.id,
                                             })
                                         "
                                         class="text-indigo-600 hover:text-indigo-900"
                                     >
                                         Править
                                         <span class="sr-only">
-                                            {{ worker.name }}
+                                            {{ driver.name }}
                                         </span>
                                     </Link>
                                 </td>
@@ -183,11 +198,11 @@ function submitForm() {
                         v-else
                         class="text-center text-2xl mt-3 mb-10 font-semibold text-gray-600"
                     >
-                        Нет таких работников.
+                        Нет Водителей.
                     </div>
                 </div>
             </div>
-            <Pagination class="mt-4" :links="users.links" />
+            <Pagination class="mt-4" :links="drivers.links" />
         </div>
     </AppLayout>
 </template>

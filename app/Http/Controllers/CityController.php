@@ -14,6 +14,7 @@ class CityController extends Controller
     {
         return Inertia::render('Admin/Cities/Index', [
             'cities' => City::query()
+                ->withCount('workers', 'drivers')
                 ->when($request->query('search'), fn($query, $text) => $query->searchBy('name', $text))
                 ->paginate()
                 ->withQueryString(),

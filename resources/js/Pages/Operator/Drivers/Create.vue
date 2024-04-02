@@ -13,15 +13,12 @@ const props = defineProps({
 
 const form = useForm({
     name: "",
-    email: "",
-    password: "",
-    password_confirmation: "",
+    IIN: "",
     city: "",
-    role: "",
 });
 
 function submitForm() {
-    form.post(route("admin.workers.store"));
+    form.post(route("operator.drivers.store"));
 }
 </script>
 
@@ -29,7 +26,7 @@ function submitForm() {
     <AppLayout title="Home">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Создать Работника
+                Создать Водителя
             </h2>
         </template>
 
@@ -37,10 +34,11 @@ function submitForm() {
             <div class="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-3">
                 <div>
                     <h2 class="text-base font-semibold leading-7 text-gray-900">
-                        Создать Работника
+                        Создать Водителя
                     </h2>
                     <p class="mt-1 text-sm leading-6 text-gray-700">
-                        Заполните нужные поля для создания работника.
+                        Заполните нужные поля для создания водителя.
+                        <br>
                         <p class="text-xs">(Заполнять кириллицой)</p>
                     </p>
                 </div>
@@ -64,55 +62,21 @@ function submitForm() {
                     </div>
 
                     <div class="sm:col-span-3">
-                        <InputLabel for="email"> Email </InputLabel>
+                        <InputLabel for="email"> ИИН </InputLabel>
 
                         <div class="mt-2">
                             <TextInput
-                                v-model="form.email"
-                                type="email"
-                                name="email"
-                                id="email"
+                                v-model="form.IIN"
+                                type="text"
+                                name="IIN"
+                                id="IIN"
                                 class="w-full"
                             />
                         </div>
-                        <InputError :message="form.errors.email" />
+                        <InputError :message="form.errors.IIN" />
                     </div>
 
                     <div class="sm:col-span-6">
-                        <InputLabel for="password"> Пароль </InputLabel>
-
-                        <div class="mt-2">
-                            <TextInput
-                                v-model="form.password"
-                                type="password"
-                                name="password"
-                                id="password"
-                                class="w-full"
-                            />
-                        </div>
-                        <InputError :message="form.errors.password" />
-                    </div>
-
-                    <div class="sm:col-span-6">
-                        <InputLabel for="password_confirmation">
-                            Подтвердите Пароль
-                        </InputLabel>
-
-                        <div class="mt-2">
-                            <TextInput
-                                v-model="form.password_confirmation"
-                                type="password"
-                                name="password_confirmation"
-                                id="password_confirmation"
-                                class="w-full"
-                            />
-                        </div>
-                        <InputError
-                            :message="form.errors.password_confirmation"
-                        />
-                    </div>
-
-                    <div class="sm:col-span-3">
                         <InputLabel for="city"> Город </InputLabel>
 
                         <div class="mt-2">
@@ -135,31 +99,6 @@ function submitForm() {
                             </select>
                         </div>
                         <InputError :message="form.errors.city" />
-                    </div>
-
-                    <div class="sm:col-span-3">
-                        <InputLabel for="role"> Роль </InputLabel>
-
-                        <div class="mt-2">
-                            <select
-                                v-model="form.role"
-                                id="role"
-                                name="role"
-                                class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm text-sm"
-                            >
-                                <option selected disabled :value="''">
-                                    Выбрать роль
-                                </option>
-                                <option
-                                    v-for="role in roles"
-                                    :key="role.value"
-                                    :value="role.value"
-                                >
-                                    {{ role.key }}
-                                </option>
-                            </select>
-                        </div>
-                        <InputError :message="form.errors.role" />
                     </div>
 
                     <div class="sm:col-span-6 mt-1">

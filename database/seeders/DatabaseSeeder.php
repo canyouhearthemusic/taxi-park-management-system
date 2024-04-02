@@ -18,23 +18,15 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             CitySeeder::class,
-        ]);
-        
-        \App\Models\User::factory(3)->create([
-            'role' => UserRole::OPERATOR->value,
-            'city_id' => 3,
-            'password' => 'pass1234'
+            WorkerSeeder::class,
+            DriverSeeder::class,
+            CarSeeder::class
         ]);
 
-        \App\Models\User::factory(15)->create([
+        \App\Models\User::factory()->create([
+            'name' => 'Operator',
             'role' => UserRole::OPERATOR->value,
-            'city_id' => 1,
-            'password' => 'pass1234'
-        ]);
-
-        \App\Models\User::factory(20)->create([
-            'role' => UserRole::OPERATOR->value,
-            'city_id' => 2,
+            'email' => 'operator@example.com',
             'password' => 'pass1234'
         ]);
 

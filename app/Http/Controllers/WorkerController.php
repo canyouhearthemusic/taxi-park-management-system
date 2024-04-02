@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Actions\Jetstream\DeleteUser;
 use App\Actions\Workers\UpdateWorker;
-use App\Actions\Workers\CreateNewWorker;
+use App\Actions\Workers\CreateWorker;
 use App\Enums\UserRole;
 use App\Http\Requests\StoreWorkerRequest;
 use App\Http\Requests\UpdateWorkerRequest;
@@ -38,9 +38,9 @@ class WorkerController extends Controller
         ]);
     }
 
-    public function store(StoreWorkerRequest $request, CreateNewWorker $createNewWorker)
+    public function store(StoreWorkerRequest $request, CreateWorker $action)
     {
-        return $createNewWorker->handle($request)
+        return $action->handle($request)
             ? to_route('admin.workers.index')->with(['success' => 'Работник был успешно создан.'])
             : to_route('admin.workers.index')->with(['error' => 'Не удалось создать работника']);
     }
@@ -54,16 +54,16 @@ class WorkerController extends Controller
         ]);
     }
 
-    public function update(UpdateWorkerRequest $request, User $user, UpdateWorker $updateWorker)
+    public function update(UpdateWorkerRequest $request, UpdateWorker $action, User $user)
     {
-        return $updateWorker->handle($request, $user)
+        return $action->handle($request, $user)
             ? to_route('admin.workers.index')->with(['success' => 'Работник был успешно обновлен.'])
             : to_route('admin.workers.index')->with(['error' => 'Не удалось обновить работника']);
     }
 
-    public function destroy(User $user, DeleteUser $deleteUser)
+    public function destroy(User $user, DeleteUser $action)
     {
-        return $deleteUser->delete($user)
+        return $action->delete($user)
             ? to_route('admin.workers.index')->with(['success' => 'Работник был успешно удален.'])
             : to_route('admin.workers.index')->with(['error' => 'Не удалось удалить работника']);
     }

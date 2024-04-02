@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Jetstream\HasProfilePhoto;
@@ -73,6 +74,18 @@ class User extends Authenticatable implements MustVerifyEmail
     public function city(): BelongsTo
     {
         return $this->belongsTo(City::class);
+    }
+
+    public function drivers()
+    {
+        if ($this->hasRole(UserRole::OPERATOR)) {
+            return $this->hasMany(Driver::class, 'operator_id');
+        }
+    }
+
+    public function hasRole(UserRole $role): bool
+    {
+        return $this->role->value === $role->value;
     }
 
     public function scopeSortBy(Builder $builder, string $sortType): Builder

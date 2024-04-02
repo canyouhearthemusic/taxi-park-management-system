@@ -40,7 +40,7 @@ function deleteWorker() {
                     </h2>
                     <p class="mt-1 text-sm leading-6 text-gray-700">
                         Заполните нужные поля для изменения работника.
-                        <span class="text-xs">(Заполнять кириллицой)</span>
+                        <p class="text-xs">(Заполнять кириллицой)</p>
                     </p>
                 </div>
 
@@ -70,7 +70,7 @@ function deleteWorker() {
                                 v-model="form.city"
                                 id="city"
                                 name="city"
-                                class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm text-sm"
+                                class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                             >
                                 <option selected disabled :value="''">
                                     Выбрать город
@@ -95,7 +95,7 @@ function deleteWorker() {
                                 v-model="form.role"
                                 id="role"
                                 name="role"
-                                class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm text-sm"
+                                class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                             >
                                 <option selected disabled :value="''">
                                     Выбрать роль

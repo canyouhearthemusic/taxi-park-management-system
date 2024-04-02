@@ -18,7 +18,13 @@ const form = useForm({
     search: props.search,
 });
 
-const TABLE_HEADERS = ["ID", "Регион", "Город"];
+const TABLE_HEADERS = [
+    "ID",
+    "Регион",
+    "Город",
+    "Кол-во сотрудников",
+    "Кол-во водителей",
+];
 
 watch(() => form.data(), debounce(submitForm, 500));
 
@@ -53,8 +59,13 @@ function submitForm() {
                     </p>
                 </div>
                 <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                    <Link :href="route('admin.cities.create')" class="w-1/2 sm:w-full">
-                        <SecondaryButton class="w-full py-3 sm:py-2"> Добавить Город </SecondaryButton>
+                    <Link
+                        :href="route('admin.cities.create')"
+                        class="w-1/2 sm:w-full"
+                    >
+                        <SecondaryButton class="w-full py-3 sm:py-2">
+                            Добавить Город
+                        </SecondaryButton>
                     </Link>
                 </div>
             </div>
@@ -78,9 +89,7 @@ function submitForm() {
                             <TableHeader :headers="TABLE_HEADERS" />
                         </template>
 
-                        <tbody
-                            class="divide-y divide-gray-200 bg-white"
-                        >
+                        <tbody class="divide-y divide-gray-200 bg-white">
                             <tr v-for="city in cities.data" :key="city.id">
                                 <td
                                     class="whitespace-nowrap font-semibold py-5 pl-4 pr-3 text-sm sm:pl-0"
@@ -100,10 +109,24 @@ function submitForm() {
                                     {{ city.name }}
                                 </td>
                                 <td
+                                    class="whitespace-nowrap py-5 text-sm text-gray-900 capitalize px-3 sm:px-0"
+                                >
+                                    {{ city.workers_count }}
+                                </td>
+                                <td
+                                    class="whitespace-nowrap py-5 text-sm text-gray-900 capitalize px-3 sm:px-0"
+                                >
+                                    {{ city.drivers_count }}
+                                </td>
+                                <td
                                     class="relative whitespace-nowrap py-5 pl-3 pr-4 text-right text-sm font-medium sm:pr-0"
                                 >
                                     <Link
-                                        :href="route('admin.cities.edit', { city: city.id })"
+                                        :href="
+                                            route('admin.cities.edit', {
+                                                city: city.id,
+                                            })
+                                        "
                                         class="text-indigo-600 hover:text-indigo-900"
                                     >
                                         Править
@@ -112,8 +135,11 @@ function submitForm() {
                             </tr>
                         </tbody>
                     </TableOutline>
-                    
-                    <div v-else class="text-center text-2xl mt-3 mb-10 font-semibold text-gray-600">
+
+                    <div
+                        v-else
+                        class="text-center text-2xl mt-3 mb-10 font-semibold text-gray-600"
+                    >
                         Нет городов.
                     </div>
                 </div>

@@ -32,7 +32,7 @@ function submitForm() {
                     </h2>
                     <p class="mt-1 text-sm leading-6 text-gray-700">
                         Заполните нужные поля для создания города.
-                        <span class="text-xs">(Заполнять кириллицой)</span>
+                        <p class="text-xs">(Заполнять кириллицой)</p>
                     </p>
                 </div>
 
