@@ -21,7 +21,8 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'city' => $this->city ?? '',
             'role' => $this->role->toOptions(),
-            'photo' => $this->profile_photo_url
+            'photo' => $this->profile_photo_url,
+            'drivers_count' => $this->drivers_count,
         ];
     }
 }

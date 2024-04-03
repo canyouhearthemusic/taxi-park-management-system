@@ -99,22 +99,22 @@ function submitForm() {
                                 <td
                                     class="whitespace-nowrap py-5 text-sm text-gray-500"
                                 >
-                                    <div class="text-gray-600 px-3 sm:px-0">
+                                    <div class="text-gray-600 px-0">
                                         {{ city.region }}
                                     </div>
                                 </td>
                                 <td
-                                    class="whitespace-nowrap py-5 text-sm text-gray-900 capitalize px-3 sm:px-0"
+                                    class="whitespace-nowrap py-5 text-sm text-gray-900 capitalize px-0"
                                 >
                                     {{ city.name }}
                                 </td>
                                 <td
-                                    class="whitespace-nowrap py-5 text-sm text-gray-900 capitalize px-3 sm:px-0"
+                                    class="whitespace-nowrap py-5 text-sm text-gray-900 capitalize px-0 sm:pl-12"
                                 >
                                     {{ city.workers_count }}
                                 </td>
                                 <td
-                                    class="whitespace-nowrap py-5 text-sm text-gray-900 capitalize px-3 sm:px-0"
+                                    class="whitespace-nowrap py-5 text-sm text-gray-900 capitalize px-0 sm:pl-12"
                                 >
                                     {{ city.drivers_count }}
                                 </td>

@@ -20,7 +20,7 @@ const form = useForm({
     sort: props.sort,
 });
 
-const TABLE_HEADERS = ["ID", "Имя", "Город", "Роль"];
+const TABLE_HEADERS = ["ID", "Имя", "Город", "Роль", "Кол-во водителей"];
 
 watch(() => form.data(), debounce(submitForm, 500));
 
@@ -157,6 +157,13 @@ function submitForm() {
                                     class="whitespace-nowrap py-5 text-sm text-gray-500 capitalize px-3 sm:px-0"
                                 >
                                     {{ worker.role.key }}
+                                </td>
+                                <td
+                                    class="whitespace-nowrap py-5 pl-12 text-sm text-gray-500"
+                                >
+                                    <div class="text-gray-900 px-3 sm:px-0">
+                                        {{ worker.drivers_count }}
+                                    </div>
                                 </td>
                                 <td
                                     class="relative whitespace-nowrap py-5 pl-3 pr-4 text-right text-sm font-medium sm:pr-0"

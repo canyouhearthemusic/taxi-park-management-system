@@ -78,14 +78,12 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function drivers()
     {
-        if ($this->hasRole(UserRole::OPERATOR)) {
-            return $this->hasMany(Driver::class, 'operator_id');
-        }
+        return $this->hasMany(Driver::class, 'operator_id');
     }
 
-    public function hasRole(UserRole $role): bool
+    public function hasRole(UserRole ...$roles): bool
     {
-        return $this->role->value === $role->value;
+        return collect($roles)->contains($this->role);
     }
 
     public function scopeSortBy(Builder $builder, string $sortType): Builder
