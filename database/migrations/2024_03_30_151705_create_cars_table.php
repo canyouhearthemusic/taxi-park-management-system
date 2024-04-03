@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('firm');
             $table->string('model');
+            $table->string('license_plate')->unique()->nullable();
             $table->foreignIdFor(City::class);
             $table->foreignId('operator_id')->nullable()->references('id')->on('users');
-            $table->foreignIdFor(LicensePlate::class)->nullable();
             $table->timestamps();
         });
     }

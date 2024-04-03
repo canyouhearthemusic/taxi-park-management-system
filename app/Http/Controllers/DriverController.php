@@ -87,7 +87,7 @@ class DriverController extends Controller
     public function destroy(Driver $driver, DeleteDriver $action)
     {
         return $action->handle($driver)
-            ? to_route('operator.drivers.index')->with(['success' => 'Водитель был успешно обновлен'])
+            ? to_route('operator.drivers.index')->with(['success' => 'Водитель был успешно удалён'])
             : to_route('operator.drivers.index')->with(['error' => 'Не удалось обновить Водителя']);
     }
 }

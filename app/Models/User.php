@@ -76,9 +76,14 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(City::class);
     }
 
-    public function drivers()
+    public function drivers(): HasMany
     {
         return $this->hasMany(Driver::class, 'operator_id');
+    }
+
+    public function cars(): HasMany
+    {
+        return $this->hasMany(Car::class, 'operator_id');
     }
 
     public function hasRole(UserRole ...$roles): bool

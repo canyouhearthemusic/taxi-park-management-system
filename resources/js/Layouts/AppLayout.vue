@@ -66,9 +66,7 @@ const logout = () => {
                                         $page.props.auth.user.role === 'Admin'
                                     "
                                     :href="route('admin.workers.index')"
-                                    :active="
-                                        route().current('admin.workers.*')
-                                    "
+                                    :active="route().current('admin.workers.*')"
                                 >
                                     Работники
                                 </NavLink>
@@ -78,16 +76,15 @@ const logout = () => {
                                         $page.props.auth.user.role === 'Admin'
                                     "
                                     :href="route('admin.cities.index')"
-                                    :active="
-                                        route().current('admin.cities.*')
-                                    "
+                                    :active="route().current('admin.cities.*')"
                                 >
                                     Города
                                 </NavLink>
 
                                 <NavLink
                                     v-if="
-                                        $page.props.auth.user.role === 'Operator'
+                                        $page.props.auth.user.role ===
+                                        'Operator'
                                     "
                                     :href="route('operator.drivers.index')"
                                     :active="
@@ -99,12 +96,11 @@ const logout = () => {
 
                                 <NavLink
                                     v-if="
-                                        $page.props.auth.user.role === 'Operator'
+                                        $page.props.auth.user.role ===
+                                        'Operator'
                                     "
                                     :href="route('operator.cars.index')"
-                                    :active="
-                                        route().current('operator.cars.*')
-                                    "
+                                    :active="route().current('operator.cars.*')"
                                 >
                                     Машины
                                 </NavLink>
@@ -276,6 +272,22 @@ const logout = () => {
                         >
                             Города
                         </ResponsiveNavLink>
+
+                        <ResponsiveNavLink
+                            v-if="$page.props.auth.user.role === 'Operator'"
+                            :href="route('operator.drivers.index')"
+                            :active="route().current('operator.drivers.*')"
+                        >
+                            Водители
+                        </ResponsiveNavLink>
+
+                        <ResponsiveNavLink
+                            v-if="$page.props.auth.user.role === 'Operator'"
+                            :href="route('operator.cars.index')"
+                            :active="route().current('operator.cars.*')"
+                        >
+                            Машины
+                        </ResponsiveNavLink>
                     </div>
 
                     <!-- Responsive Settings Options -->
@@ -313,21 +325,13 @@ const logout = () => {
                                 :href="route('profile.show')"
                                 :active="route().current('profile.show')"
                             >
-                                Profile
-                            </ResponsiveNavLink>
-
-                            <ResponsiveNavLink
-                                v-if="$page.props.jetstream.hasApiFeatures"
-                                :href="route('api-tokens.index')"
-                                :active="route().current('api-tokens.index')"
-                            >
-                                API Tokens
+                                Настройки Профиля
                             </ResponsiveNavLink>
 
                             <!-- Authentication -->
                             <form method="POST" @submit.prevent="logout">
                                 <ResponsiveNavLink as="button">
-                                    Log Out
+                                    <span class="text-red-500"> Выйти </span>
                                 </ResponsiveNavLink>
                             </form>
 

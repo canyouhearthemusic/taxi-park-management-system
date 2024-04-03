@@ -9,23 +9,24 @@ import { useForm, router } from "@inertiajs/vue3";
 
 const props = defineProps({
     cities: Array,
-    driver: Object,
+    car: Object,
 });
 
 const form = useForm({
-    id: props.driver.id,
-    name: props.driver.name,
-    IIN: props.driver.IIN,
-    city: props.driver.city_id,
+    id: props.car.id,
+    firm: props.car.firm,
+    model: props.car.model,
+    city: props.car.city_id,
+    license_plate: props.car.license_plate,
 });
 
 function submitForm() {
-    form.patch(route("operator.drivers.update", { driver: props.driver.id }));
+    form.patch(route("operator.cars.update", { car: props.car.id }));
 }
 
-function deleteDriver() {
+function deleteCar() {
     router.delete(
-        route("operator.drivers.destroy", { driver: props.driver.id }),
+        route("operator.cars.destroy", { car: props.car.id }),
         {
             onBefore: () =>
                 confirm("Are you sure you want to delete this user?"),
@@ -40,11 +41,11 @@ function deleteDriver() {
             <div class="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-3">
                 <div>
                     <h2 class="text-base font-semibold leading-7 text-gray-900">
-                        Изменить Данные Водителя
+                        Изменить Данные Машины
                     </h2>
                     <p class="mt-1 text-sm leading-6 text-gray-700">
-                        Заполните нужные поля для изменения водителя.
-                        <span class="text-xs">(Заполнять кириллицой)</span>
+                        Заполните нужные поля для изменения машины.
+                        <span class="text-xs">(Заполнять латиницой)</span>
                     </p>
                 </div>
 
@@ -52,32 +53,47 @@ function deleteDriver() {
                     @submit.prevent="submitForm"
                     class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2"
                 >
-                    <div class="sm:col-span-6">
-                        <InputLabel for="name"> Имя </InputLabel>
+                    <div class="sm:col-span-3">
+                        <InputLabel for="firm"> Марка </InputLabel>
 
                         <div class="mt-2">
                             <TextInput
-                                v-model="form.name"
-                                name="name"
-                                id="name"
+                                v-model="form.firm"
+                                name="firm"
+                                id="firm"
                                 class="w-full"
                             />
                         </div>
-                        <InputError :message="form.errors.name" />
+                        <InputError :message="form.errors.firm" />
                     </div>
 
                     <div class="sm:col-span-3">
-                        <InputLabel for="name"> ИИН </InputLabel>
+                        <InputLabel for="model"> Модель </InputLabel>
 
                         <div class="mt-2">
                             <TextInput
-                                v-model="form.IIN"
-                                name="IIN"
-                                id="IIN"
+                                v-model="form.model"
+                                name="model"
+                                id="model"
                                 class="w-full"
                             />
                         </div>
-                        <InputError :message="form.errors.IIN" />
+                        <InputError :message="form.errors.model" />
+                    </div>
+
+                    <div class="sm:col-span-3">
+                        <InputLabel for="license_plate"> Гос. Номер </InputLabel>
+
+                        <div class="mt-2">
+                            <TextInput
+                                v-model="form.license_plate"
+                                type="text"
+                                name="license_plate"
+                                id="license_plate"
+                                class="w-full"
+                            />
+                        </div>
+                        <InputError :message="form.errors.license_plate" />
                     </div>
 
                     <div class="sm:col-span-3">
@@ -107,7 +123,7 @@ function deleteDriver() {
 
                     <div class="sm:col-span-3">
                         <DangerButton
-                            @click.prevent="deleteDriver"
+                            @click.prevent="deleteCar"
                             class="w-full py-2.5"
                         >
                             Удалить

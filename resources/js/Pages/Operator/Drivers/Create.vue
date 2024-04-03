@@ -7,7 +7,6 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import { useForm } from "@inertiajs/vue3";
 
 const props = defineProps({
-    roles: Array,
     cities: Array,
 });
 
@@ -62,7 +61,7 @@ function submitForm() {
                     </div>
 
                     <div class="sm:col-span-3">
-                        <InputLabel for="email"> ИИН </InputLabel>
+                        <InputLabel for="IIN"> ИИН </InputLabel>
 
                         <div class="mt-2">
                             <TextInput
