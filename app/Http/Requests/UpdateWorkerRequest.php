@@ -2,16 +2,18 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\UserRole;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class UpdateWorkerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
+    public function authorize(Request $request): bool
     {
-        return true;
+        return $request->user()->hasRole(UserRole::ADMIN);
     }
 
     /**
